@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class Student {
+    String usn;
+    String name;
+    int[] credits;
+    int[] marks;
+    int numSubjects;
+
+    public Student(int numSubjects) {
+        this.numSubjects = numSubjects;
+        credits = new int[numSubjects];
+        marks = new int[numSubjects];
+    }
+
+    public void acceptDetails() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter your USN: ");
+        usn = sc.nextLine();
+
+        System.out.print("Enter your Name: ");
+        name = sc.nextLine();
+
+        System.out.println("Enter details for " + numSubjects + " subjects:");
+        for (int i = 0; i < numSubjects; i++) {
+            System.out.print("Enter credits for subject " + (i + 1) + ": ");
+            credits[i] = sc.nextInt();
+
+            System.out.print("Enter marks for subject " + (i + 1) + ": ");
+            marks[i] = sc.nextInt();
+        }
+    }
+
+    public void displayDetails() {
+        System.out.println("\nStudent Details:");
+        System.out.println("USN: " + usn);
+        System.out.println("Name: " + name);
+        System.out.println("Subjects Details:");
+        for (int i = 0; i < numSubjects; i++) {
+            System.out.println("Subject " + (i + 1) + ": Credits = " + credits[i] + ", Marks = " + marks[i]);
+        }
+    }
+
+    public double calculateSGPA() {
+        int totalCredits = 0;
+        int totalPoints = 0;
+
+        for (int i = 0; i < numSubjects; i++) {
+            int gradePoint = getGradePoint(marks[i]);
+            totalCredits += credits[i];
+            totalPoints += gradePoint * credits[i];
+        }
+
+        return (double) totalPoints / totalCredits;
+    }
+
+    private int getGradePoint(int marks) {
+        if (marks >= 90) return 10;
+        else if (marks >= 80) return 9;
+        else if (marks >= 70) return 8;
+        else if (marks >= 60) return 7;
+        else if (marks >= 50) return 6;
+        else if (marks >= 40) return 5;
+        else return 0; // Fail grade
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the number of subjects: ");
+        int numSubjects = sc.nextInt();
+
+        Student student = new Student(numSubjects);
+
+        student.acceptDetails();
+        student.displayDetails();
+
+        double sgpa = student.calculateSGPA();
+        System.out.printf("SGPA: %.2f\n", sgpa);
+    }
+}
