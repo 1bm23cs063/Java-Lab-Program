@@ -1,0 +1,74 @@
+import java.util.*;
+
+abstract class Shape {
+    int a;
+    int b;
+
+    Shape(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    abstract void printArea();
+}
+
+class Rectangle extends Shape {
+    Rectangle(int length, int width) {
+        super(length, width);
+    }
+
+    void printArea() {
+        int area = a * b;
+        System.out.println("Area of Rectangle: " + area);
+    }
+}
+
+class Triangle extends Shape {
+    Triangle(int base, int height) {
+        super(base, height);
+    }
+
+    void printArea() {
+        double area = 0.5 * a * b;
+        System.out.println("Area of Triangle: " + area);
+    }
+}
+
+class Circle extends Shape {
+    Circle(int radius) {
+        super(radius, 0); // `b` is not used for Circle
+    }
+
+    void printArea() {
+        double area = Math.PI * a * a;
+        System.out.println("Area of Circle: " + area);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter length of rectangle: ");
+        int rectangleLength = sc.nextInt();
+        System.out.print("Enter width of rectangle: ");
+        int rectangleWidth = sc.nextInt();
+        Shape rectangle = new Rectangle(rectangleLength, rectangleWidth);
+
+        System.out.print("Enter base of triangle: ");
+        int triangleBase = sc.nextInt();
+        System.out.print("Enter height of triangle: ");
+        int triangleHeight = sc.nextInt();
+        Shape triangle = new Triangle(triangleBase, triangleHeight);
+
+        System.out.print("Enter radius of circle: ");
+        int circleRadius = sc.nextInt();
+        Shape circle = new Circle(circleRadius);
+
+        rectangle.printArea();
+        triangle.printArea();
+        circle.printArea();
+
+        sc.close();
+    }
+}
